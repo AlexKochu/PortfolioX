@@ -1459,6 +1459,66 @@
             pointer-events: none;
         }
 
+        /* Mobile-first and responsive adjustments for phone viewports */
+        @media (max-width: 760px) {
+            .nav-inner {
+                padding: 14px 20px;
+            }
+            .nav-actions {
+                display: none;
+            }
+            .hero-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+                text-align: left;
+            }
+            .portrait-wrap {
+                margin-top: 16px;
+            }
+            .portrait-blob {
+                max-width: 280px;
+            }
+            .role {
+                padding: 18px 20px;
+                margin-bottom: 20px;
+            }
+            .section {
+                padding: 60px 0;
+            }
+            .project-card {
+                padding: 24px;
+            }
+            .stat-row {
+                gap: 10px;
+            }
+            .stat {
+                padding: 10px 14px;
+                min-width: 90px;
+            }
+            .stat-num {
+                font-size: 22px;
+            }
+            .cert-row {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+                padding: 16px;
+            }
+            .edu-card {
+                flex-direction: column;
+                align-items: stretch;
+                padding: 24px 20px;
+                gap: 12px;
+            }
+            .edu-right {
+                text-align: left;
+                margin-top: 4px;
+            }
+            .comp-cell {
+                padding: 18px 20px;
+            }
+        }
+
     </style>
 </head>
 
