@@ -84,32 +84,39 @@
             border-radius: 50%;
             pointer-events: none;
             z-index: 0;
-            filter: blur(80px);
+            filter: blur(90px);
             animation: orbFloat var(--orb-dur, 12s) ease-in-out var(--orb-delay, 0s) infinite alternate;
         }
         .orb-1 {
-            width: 520px; height: 520px;
-            top: -120px; left: -160px;
-            background: radial-gradient(circle, rgba(212,175,55,0.08) 0%, transparent 70%);
+            width: 680px; height: 680px;
+            top: -200px; left: -200px;
+            background: radial-gradient(circle, rgba(212,175,55,0.13) 0%, rgba(212,175,55,0.04) 45%, transparent 70%);
             --orb-dur: 14s; --orb-delay: 0s;
         }
         .orb-2 {
-            width: 400px; height: 400px;
-            bottom: 10%; right: -100px;
-            background: radial-gradient(circle, rgba(255,255,255,0.04) 0%, transparent 70%);
+            width: 500px; height: 500px;
+            bottom: 5%; right: -140px;
+            background: radial-gradient(circle, rgba(255,255,255,0.06) 0%, rgba(212,175,55,0.03) 50%, transparent 70%);
             --orb-dur: 18s; --orb-delay: 3s;
         }
         .orb-3 {
-            width: 300px; height: 300px;
+            width: 380px; height: 380px;
             top: 40%; left: 50%;
-            background: radial-gradient(circle, rgba(212,175,55,0.05) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(212,175,55,0.08) 0%, transparent 70%);
             --orb-dur: 22s; --orb-delay: 7s;
+        }
+        /* Extra deep-space orb for bottom half depth */
+        .orb-4 {
+            width: 320px; height: 320px;
+            top: 65%; left: 15%;
+            background: radial-gradient(circle, rgba(255,255,255,0.03) 0%, transparent 70%);
+            --orb-dur: 16s; --orb-delay: 5s;
         }
         @keyframes orbFloat {
             0%   { transform: translate(0, 0) scale(1); }
-            33%  { transform: translate(30px, -40px) scale(1.05); }
-            66%  { transform: translate(-20px, 20px) scale(0.97); }
-            100% { transform: translate(10px, -20px) scale(1.02); }
+            33%  { transform: translate(30px, -40px) scale(1.06); }
+            66%  { transform: translate(-20px, 22px) scale(0.97); }
+            100% { transform: translate(12px, -22px) scale(1.03); }
         }
 
         /* ===== 3D PERSPECTIVE UTILS ===== */
@@ -174,10 +181,19 @@
         /* ===== 3D STAT CARDS ===== */
         .stat {
             transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.3s ease;
+            /* Resting 3D depth: subtle bottom shadow + inset top highlight */
+            box-shadow:
+                0 4px 12px rgba(0,0,0,0.35),
+                0 1px 0 rgba(255,255,255,0.06) inset,
+                0 -1px 0 rgba(0,0,0,0.3) inset;
         }
         .stat:hover {
-            transform: translateY(-6px) scale(1.04) rotateX(4deg);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4), 0 0 0 1px rgba(212,175,55,0.15);
+            transform: translateY(-8px) scale(1.05) rotateX(5deg);
+            box-shadow:
+                0 28px 50px rgba(0,0,0,0.5),
+                0 0 0 1px rgba(212,175,55,0.2),
+                0 1px 0 rgba(255,255,255,0.1) inset,
+                0 -1px 0 rgba(0,0,0,0.4) inset;
         }
 
         /* ===== 3D COMP CELLS ===== */
@@ -345,18 +361,23 @@
             left: 0;
             right: 0;
             z-index: 50;
-            background: rgba(18, 18, 18, 0.45);
+            background: rgba(18, 18, 18, 0.5);
             backdrop-filter: blur(25px) saturate(1.1);
             -webkit-backdrop-filter: blur(25px) saturate(1.1);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
             transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            /* 3D floating nav: shadow below + subtle inner bottom highlight */
+            box-shadow: 0 1px 0 rgba(255,255,255,0.04) inset, 0 4px 20px rgba(0,0,0,0.3);
         }
         nav:not(.dot-nav).scrolled {
-            background: rgba(18, 18, 18, 0.65);
+            background: rgba(14, 14, 14, 0.75);
             backdrop-filter: blur(35px);
             -webkit-backdrop-filter: blur(35px);
             border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            box-shadow:
+                0 1px 0 rgba(255,255,255,0.05) inset,
+                0 12px 40px rgba(0,0,0,0.45),
+                0 2px 8px rgba(0,0,0,0.3);
         }
 
         .nav-inner {
@@ -597,6 +618,12 @@
             letter-spacing: -0.02em;
             margin-bottom: 22px;
             color: var(--cream);
+            /* 3D depth stack on the hero name */
+            text-shadow:
+                0 1px 0 rgba(255,255,255,0.15),
+                0 2px 0 rgba(0,0,0,0.25),
+                0 4px 8px rgba(0,0,0,0.35),
+                0 8px 24px rgba(0,0,0,0.2);
         }
 
         .role {
@@ -674,15 +701,30 @@
             aspect-ratio: 1/1.12;
             border-radius: 20px;
             overflow: hidden;
-            border: 1px solid rgba(255,255,255,0.08);
-            box-shadow: 0 20px 50px rgba(0,0,0,0.45);
+            /* 3D bevel frame: bright top-left edge + deep bottom-right shadow */
+            border: 1px solid rgba(255,255,255,0.12);
+            box-shadow:
+                /* ambient depth */
+                0 24px 60px rgba(0,0,0,0.55),
+                0 8px 20px rgba(0,0,0,0.35),
+                /* gold accent glow */
+                0 0 0 1px rgba(212,175,55,0.08),
+                /* bevel highlight on top-left */
+                -2px -2px 0 rgba(255,255,255,0.07) inset,
+                /* depth shadow on bottom-right */
+                2px 2px 0 rgba(0,0,0,0.4) inset;
             transition: all .5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
 
         .portrait-blob:hover {
-            transform: translateY(-4px) scale(1.01);
-            box-shadow: 0 30px 70px rgba(0,0,0,0.55), 0 0 0 1px rgba(255,255,255,0.15);
-            border-color: rgba(255, 255, 255, 0.15);
+            transform: translateY(-6px) scale(1.015);
+            box-shadow:
+                0 40px 80px rgba(0,0,0,0.65),
+                0 12px 30px rgba(0,0,0,0.4),
+                0 0 0 1px rgba(212,175,55,0.18),
+                -2px -2px 0 rgba(255,255,255,0.12) inset,
+                2px 2px 0 rgba(0,0,0,0.45) inset;
+            border-color: rgba(255, 255, 255, 0.2);
         }
 
         .portrait-blob img {
@@ -693,7 +735,18 @@
             transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
         .portrait-blob:hover img {
-            transform: scale(1.03);
+            transform: scale(1.04);
+        }
+
+        /* 3D floating frame ring behind portrait */
+        .portrait-ring {
+            position: absolute;
+            inset: -8px;
+            border-radius: 26px;
+            border: 1px solid rgba(212,175,55,0.12);
+            pointer-events: none;
+            z-index: -1;
+            box-shadow: 0 0 0 1px rgba(255,255,255,0.04) inset;
         }
 
         .portrait-tag {
@@ -709,6 +762,7 @@
             padding: 7px 16px;
             border-radius: 30px;
             white-space: nowrap;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.4), 0 1px 0 rgba(255,255,255,0.06) inset;
         }
 
         /* ===== SECTION HEADERS ===== */
@@ -741,6 +795,7 @@
             font-family: var(--mono);
             font-size: 13px;
             color: var(--gold);
+            text-shadow: 0 0 12px rgba(212,175,55,0.5), 0 2px 4px rgba(0,0,0,0.4);
         }
 
         h2.section-title {
@@ -748,6 +803,7 @@
             font-weight: 600;
             font-size: clamp(26px, 3vw, 34px);
             color: var(--cream);
+            text-shadow: 0 1px 0 rgba(255,255,255,0.1), 0 3px 12px rgba(0,0,0,0.3);
         }
 
         .section-sub {
@@ -814,12 +870,15 @@
             margin-bottom: 8px;
         }
         .tl-item:hover {
-            background: rgba(255, 255, 255, 0.035);
+            background: rgba(255, 255, 255, 0.04);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
-            border-color: rgba(255, 255, 255, 0.06);
-            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.3);
-            transform: translateY(-2px);
+            border-color: rgba(255, 255, 255, 0.08);
+            box-shadow:
+                0 24px 50px rgba(0,0,0,0.38),
+                0 1px 0 rgba(255,255,255,0.06) inset,
+                0 0 0 1px rgba(212,175,55,0.05);
+            transform: translateY(-3px) perspective(800px) rotateX(0.8deg);
             padding-left: 28px;
         }
         .tl-item:last-child {
@@ -919,10 +978,10 @@
 
         /* ===== PROJECTS ===== */
         .project-card {
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.07);
             border-radius: 18px;
             padding: 38px;
-            background: rgba(30, 30, 30, 0.4);
+            background: rgba(28, 28, 28, 0.45);
             backdrop-filter: blur(25px);
             -webkit-backdrop-filter: blur(25px);
             margin-bottom: 24px;
@@ -930,13 +989,24 @@
             overflow: hidden;
             transform-style: preserve-3d;
             transition: all .4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            /* Resting 3D depth: multi-layer shadow stack */
+            box-shadow:
+                0 2px 0 rgba(255,255,255,0.04) inset,     /* top bevel highlight */
+                0 -1px 0 rgba(0,0,0,0.5) inset,           /* bottom bevel shadow */
+                0 8px 24px rgba(0,0,0,0.35),
+                0 2px 6px rgba(0,0,0,0.25);
         }
 
         .project-card:hover {
-            background: rgba(40, 40, 40, 0.5);
-            border-color: rgba(255, 255, 255, 0.12);
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
-            transform: translateY(-4px);
+            background: rgba(38, 38, 38, 0.55);
+            border-color: rgba(255, 255, 255, 0.13);
+            box-shadow:
+                0 2px 0 rgba(255,255,255,0.07) inset,
+                0 -1px 0 rgba(0,0,0,0.6) inset,
+                0 40px 70px rgba(0,0,0,0.5),
+                0 12px 24px rgba(0,0,0,0.35),
+                0 0 0 1px rgba(212,175,55,0.08);
+            transform: translateY(-6px);
         }
 
         .project-card::after {
@@ -944,9 +1014,9 @@
             position: absolute;
             top: -60px;
             right: -60px;
-            width: 200px;
-            height: 200px;
-            background: radial-gradient(circle, rgba(196, 163, 90, 0.08), transparent 70%);
+            width: 240px;
+            height: 240px;
+            background: radial-gradient(circle, rgba(196, 163, 90, 0.1), transparent 70%);
         }
 
         .project-card::before {
@@ -955,7 +1025,7 @@
             inset: 0;
             border-radius: 18px;
             padding: 1px;
-            background: linear-gradient(120deg, transparent 30%, rgba(196, 163, 90, 0.3), transparent 70%);
+            background: linear-gradient(120deg, transparent 30%, rgba(196, 163, 90, 0.35), transparent 70%);
             -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
             -webkit-mask-composite: xor;
             mask-composite: exclude;
@@ -1012,13 +1082,19 @@
         }
 
         .stat {
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.08);
             border-radius: 12px;
             padding: 14px 18px;
             min-width: 120px;
-            background: rgba(255, 255, 255, 0.02);
+            background: rgba(255, 255, 255, 0.035);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
+            /* 3D bevel depth */
+            box-shadow:
+                0 1px 0 rgba(255,255,255,0.08) inset,
+                0 -1px 0 rgba(0,0,0,0.35) inset,
+                0 6px 18px rgba(0,0,0,0.35),
+                0 2px 4px rgba(0,0,0,0.25);
         }
 
         .stat-num {
@@ -1192,12 +1268,15 @@
 
         .cert-row:hover {
             padding-left: 28px;
-            background: rgba(255, 255, 255, 0.035);
+            background: rgba(255, 255, 255, 0.04);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
-            border-color: rgba(255, 255, 255, 0.06);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
-            transform: translateY(-2px);
+            border-color: rgba(255, 255, 255, 0.08);
+            box-shadow:
+                0 18px 36px rgba(0,0,0,0.3),
+                0 1px 0 rgba(255,255,255,0.06) inset,
+                0 0 0 1px rgba(212,175,55,0.06);
+            transform: translateY(-3px) perspective(600px) rotateX(1deg);
         }
 
         .cert-name {
@@ -1230,12 +1309,18 @@
             flex-wrap: wrap;
             gap: 14px;
             transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            box-shadow:
+                0 4px 16px rgba(0,0,0,0.3),
+                0 1px 0 rgba(255,255,255,0.05) inset;
         }
         .edu-card:hover {
-            background: rgba(255, 255, 255, 0.02);
-            border-color: rgba(255, 255, 255, 0.1);
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+            background: rgba(255, 255, 255, 0.03);
+            border-color: rgba(255, 255, 255, 0.12);
+            transform: translateY(-3px) perspective(800px) rotateX(1.5deg);
+            box-shadow:
+                0 20px 50px rgba(0,0,0,0.4),
+                0 1px 0 rgba(255,255,255,0.08) inset,
+                0 0 0 1px rgba(212,175,55,0.06);
         }
 
         .edu-name {
@@ -1712,6 +1797,7 @@
     <div class="orb orb-1"></div>
     <div class="orb orb-2"></div>
     <div class="orb orb-3"></div>
+    <div class="orb orb-4"></div>
 
     <div id="scroll-progress"></div>
 
@@ -1775,6 +1861,7 @@
                 </div>
             </div>
             <div class="portrait-wrap hero-portrait-layer" id="heroPortrait">
+                <div class="portrait-ring"></div>
                 <div class="portrait-blob tilt-3d" id="portraitBlob">
                     <img src="photo.jpg" alt="Alex Kochumon Koshy">
                 </div>
@@ -2384,10 +2471,10 @@
                 // Update CSS custom props for shimmer position
                 card.style.setProperty('--mx', ((e.clientX - r.left) / r.width  * 100) + '%');
                 card.style.setProperty('--my', ((e.clientY - r.top)  / r.height * 100) + '%');
-                card.style.transform = `perspective(1000px) rotateY(${x * 8}deg) rotateX(${-y * 5}deg) scale3d(1.015,1.015,1.015)`;
+                card.style.transform = `perspective(900px) rotateY(${x * 12}deg) rotateX(${-y * 8}deg) scale3d(1.02,1.02,1.02)`;
             });
             card.addEventListener('mouseleave', () => {
-                card.style.transform = 'perspective(1000px) rotateY(0deg) rotateX(0deg) scale3d(1,1,1)';
+                card.style.transform = 'perspective(900px) rotateY(0deg) rotateX(0deg) scale3d(1,1,1)';
             });
         });
 
@@ -2397,10 +2484,12 @@
                 const r = cell.getBoundingClientRect();
                 const x = (e.clientX - r.left) / r.width  - 0.5;
                 const y = (e.clientY - r.top)  / r.height - 0.5;
-                cell.style.transform = `scale(1.02) translateZ(8px) perspective(600px) rotateY(${x * 10}deg) rotateX(${-y * 8}deg)`;
+                cell.style.transform = `scale(1.025) perspective(600px) rotateY(${x * 14}deg) rotateX(${-y * 10}deg) translateZ(10px)`;
+                cell.style.boxShadow = `${-x*8}px ${-y*6}px 24px rgba(0,0,0,0.4), 0 1px 0 rgba(255,255,255,0.08) inset`;
             });
             cell.addEventListener('mouseleave', () => {
                 cell.style.transform = '';
+                cell.style.boxShadow = '';
             });
         });
 
