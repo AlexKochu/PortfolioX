@@ -148,6 +148,8 @@
       pointer-events: none;
       opacity: 0.35;
     }
+    /* Hide particle canvas on phones — major perf win */
+    @media (max-width: 767px) { #three-canvas { display: none; } }
 
     /* ============================================================
        DOT NAV
@@ -516,9 +518,14 @@
     /* Hero two-column split layout */
     .hero-split {
       display: grid;
-      gap: 40px;
+      gap: 32px;
       align-items: center;
-      padding-top: 40px;
+      padding-top: 32px;
+    }
+    /* On mobile: portrait first, then text */
+    @media (max-width: 1023px) {
+      .hero-split > div:first-child { order: 2; }
+      .hero-portrait { order: 1; }
     }
     @media (min-width: 1024px) {
       .hero-split {
@@ -532,10 +539,11 @@
     .hero-portrait {
       position: relative;
       width: 100%;
-      max-width: 260px;
+      max-width: 220px;
       margin: 0 auto;
       flex-shrink: 0;
     }
+    @media (min-width: 480px) { .hero-portrait { max-width: 280px; } }
     @media (min-width: 1024px) {
       .hero-portrait {
         max-width: 100%;
@@ -890,12 +898,14 @@
     /* Work card grid */
     .work-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      grid-template-rows: auto auto;
-      gap: 20px;
+      grid-template-columns: 1fr;
+      gap: 16px;
     }
-    @media (max-width: 767px) {
-      .work-grid { grid-template-columns: 1fr; }
+    @media (min-width: 640px) {
+      .work-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+      }
     }
 
     /* ============================================================
@@ -1124,18 +1134,24 @@
     }
     .work-card:hover { border-color: rgba(201,162,39,0.5); }
 
-    /* Tall card — left column, spans 2 rows */
+    /* Tall card — left column, spans 2 rows on desktop */
     .work-card-tall {
-      height: 560px;
-      grid-row: span 2;
+      height: 420px;
     }
-    @media (min-width: 1024px) { .work-card-tall { height: auto; min-height: 640px; } }
+    @media (min-width: 640px) {
+      .work-card-tall {
+        height: 560px;
+        grid-row: span 2;
+      }
+    }
+    @media (min-width: 1024px) { .work-card-tall { height: auto; min-height: 660px; } }
 
-    /* Square card — right column, single row */
+    /* Square card — right column */
     .work-card-square {
-      height: 340px;
+      height: 320px;
     }
-    @media (min-width: 1024px) { .work-card-square { height: 380px; } }
+    @media (min-width: 640px) { .work-card-square { height: 268px; } }
+    @media (min-width: 1024px) { .work-card-square { height: 310px; } }
 
     .work-img-wrap { position: absolute; inset: 0; }
 
@@ -2556,14 +2572,17 @@
 <!-- ===================== JAVASCRIPT ===================== -->
 <script>
 /* =====================================================
-   THREE.JS PARTICLE NETWORK — Emerald / Brass palette
+   THREE.JS PARTICLE NETWORK — desktop only
    ===================================================== */
 (function() {
+  // Skip entirely on phones — saves ~40ms parse + constant GPU drain
+  if (window.innerWidth < 768) return;
+
   const canvas = document.getElementById('three-canvas');
   if (!window.THREE || !canvas) return;
 
-  const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: false });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5)); // cap at 1.5x, not 2x
   renderer.setSize(window.innerWidth, window.innerHeight);
   renderer.setClearColor(0x000000, 0);
 
@@ -2571,7 +2590,7 @@
   const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
   camera.position.z = 5;
 
-  const COUNT = 160;
+  const COUNT = 80; // reduced from 160 — halves GPU work
   const positions = new Float32Array(COUNT * 3);
   const particleData = [];
   for (let i = 0; i < COUNT; i++) {
@@ -2587,11 +2606,9 @@
   const geo = new THREE.BufferGeometry();
   geo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
 
-  // Mix emerald and brass particles
   const mat = new THREE.PointsMaterial({ color: 0x2c8a63, size: 0.06, transparent: true, opacity: 0.8, sizeAttenuation: true });
   scene.add(new THREE.Points(geo, mat));
 
-  const lineMat = new THREE.LineBasicMaterial({ color: 0xc9a227, transparent: true, opacity: 0.1 });
   const lineGroup = new THREE.Group();
   scene.add(lineGroup);
 
@@ -2599,7 +2616,7 @@
   document.addEventListener('mousemove', e => {
     mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
     mouseY = (e.clientY / window.innerHeight - 0.5) * 2;
-  });
+  }, { passive: true });
 
   function updateLines() {
     while (lineGroup.children.length) lineGroup.remove(lineGroup.children[0]);
@@ -2634,7 +2651,7 @@
       if (pos[i*3+2]>4) pos[i*3+2]=-4; if (pos[i*3+2]<-4) pos[i*3+2]=4;
     }
     geo.attributes.position.needsUpdate = true;
-    if (frame % 3 === 0) updateLines();
+    if (frame % 6 === 0) updateLines(); // was every 3 frames, now every 6
     camera.position.x += (mouseX*0.5 - camera.position.x)*0.04;
     camera.position.y += (-mouseY*0.35 - camera.position.y)*0.04;
     camera.lookAt(scene.position);
@@ -2689,6 +2706,8 @@ window.addEventListener('resize', () => {
    ===================================================== */
 const progressBar = document.getElementById('scroll-progress');
 
+// Throttle scroll via rAF — prevents jank on low-end devices
+let scrollTicking = false;
 function updateScroll() {
   const scrollTop = window.scrollY;
   const docH = document.documentElement.scrollHeight - window.innerHeight;
@@ -2696,8 +2715,14 @@ function updateScroll() {
   navWrap.style.background = scrollTop > 40
     ? 'rgba(10,23,17,0.92)'
     : 'rgba(10,23,17,0.75)';
+  scrollTicking = false;
 }
-window.addEventListener('scroll', updateScroll, { passive: true });
+window.addEventListener('scroll', () => {
+  if (!scrollTicking) {
+    requestAnimationFrame(updateScroll);
+    scrollTicking = true;
+  }
+}, { passive: true });
 updateScroll();
 
 /* =====================================================
@@ -2721,6 +2746,7 @@ const dotLinks = document.querySelectorAll('.dot-nav a');
 const navLinkEls = document.querySelectorAll('.nav-link');
 const sectionIds = ['about','experience','projects','competencies','recognition','contact'];
 
+let activeTicking = false;
 function updateActive() {
   let current = '';
   sectionIds.forEach(id => {
@@ -2729,8 +2755,14 @@ function updateActive() {
   });
   dotLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#'+current));
   navLinkEls.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#'+current));
+  activeTicking = false;
 }
-window.addEventListener('scroll', updateActive, { passive: true });
+window.addEventListener('scroll', () => {
+  if (!activeTicking) {
+    requestAnimationFrame(updateActive);
+    activeTicking = true;
+  }
+}, { passive: true });
 updateActive();
 
 /* =====================================================
