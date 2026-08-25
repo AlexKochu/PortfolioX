@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Alex Kochumon Koshy — AI Product Manager &amp; Data Product Builder</title>
-  <meta name="description" content="Personal portfolio of Alex Kochumon Koshy. AI Product Manager & Data Science professional building human-centered, data-driven products. Open for roles in 2026.">
-  <meta name="keywords" content="Alex Koshy, Alex Kochumon Koshy, AI Product Manager, Product Management, Business Analytics, Data Science, Machine Learning, Python, SQL">
+  <title>Alex Kochumon Koshy — Aspiring Product Builder</title>
+  <meta name="description" content="Personal portfolio of Alex Kochumon Koshy. Aspiring product builder at the intersection of AI, data, and technology. Building thoughtful, usable products.">
+  <meta name="keywords" content="Alex Koshy, Alex Kochumon Koshy, Product Manager, Product Builder, Business Analytics, Data Science, Machine Learning, Python, SQL">
 
   <!-- Preconnect -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -22,29 +22,29 @@
 
   <style>
     /* ============================================================
-       DESIGN TOKENS & COLOR PALETTE
+       DESIGN TOKENS & CLAUDE AESTHETIC PALETTE
        ============================================================ */
     :root {
-      --bg-dark:        #08090d;
-      --bg-surface:     #10121a;
-      --bg-card:        #151824;
-      --bg-card-hover:  #1c2030;
+      --bg-dark:        #121110; /* Warm obsidian dark mode */
+      --bg-surface:     #191715;
+      --bg-card:        #211e1b;
+      --bg-card-hover:  #292522;
 
-      --text-main:      #f4f3ef;
-      --text-muted:     #9ca1b0;
-      --text-dim:       #64697a;
+      --text-main:      #f5efe6; /* Claude off-white cream */
+      --text-muted:     #aa9e93;
+      --text-dim:       #6f655d;
 
-      --accent:         #e85a40; /* Warm Burnt Coral / Terracotta Gold */
-      --accent-hover:   #ff6b4a;
-      --accent-glow:    rgba(232, 90, 64, 0.25);
-      --accent-soft:    rgba(232, 90, 64, 0.12);
+      --claude-orange:  #da543b; /* Reference Photo Terracotta Coral */
+      --claude-cyan:    #7ae2ef; /* Reference Photo Cyan Blue Text */
 
-      --emerald:        #2c8a63;
-      --emerald-soft:   rgba(44, 138, 99, 0.15);
+      --accent:         #da543b;
+      --accent-hover:   #ea6148;
+      --accent-glow:    rgba(218, 84, 59, 0.28);
+      --accent-soft:    rgba(218, 84, 59, 0.14);
 
-      --border-subtle:  rgba(255, 255, 255, 0.07);
-      --border-medium:  rgba(255, 255, 255, 0.14);
-      --border-accent:  rgba(232, 90, 64, 0.35);
+      --border-subtle:  rgba(255, 255, 255, 0.08);
+      --border-medium:  rgba(255, 255, 255, 0.16);
+      --border-accent:  rgba(218, 84, 59, 0.4);
 
       --font-sans:     'Outfit', system-ui, -apple-system, sans-serif;
       --font-serif:    'Newsreader', Georgia, serif;
@@ -149,22 +149,24 @@
     }
 
     /* ============================================================
-       MULTILINGUAL UNBOXING INTRO ANIMATION
+       CLAUDE TERRACOTTA DYNAMIC MULTILINGUAL UNBOXING INTRO
        ============================================================ */
     #intro-screen {
       position: fixed;
       inset: 0;
       z-index: 10000;
-      background: #06070a;
+      background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), #ea6148 0%, #da543b 50%, #c44730 100%);
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.8s;
+      transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1), transform 0.85s cubic-bezier(0.16, 1, 0.3, 1), filter 0.85s ease, visibility 0.85s;
     }
 
     #intro-screen.hide-intro {
       opacity: 0;
+      transform: scale(1.08);
+      filter: blur(16px);
       visibility: hidden;
       pointer-events: none;
     }
@@ -172,64 +174,110 @@
     .intro-word-wrap {
       text-align: center;
       position: relative;
-      height: 120px;
+      height: 160px;
+      width: 100%;
       display: flex;
       align-items: center;
       justify-content: center;
+      perspective: 1000px;
     }
 
     .intro-word {
       font-family: var(--font-sans);
-      font-size: clamp(3rem, 10vw, 6.5rem);
+      font-size: clamp(3.5rem, 12vw, 8rem);
       font-weight: 700;
-      letter-spacing: -0.04em;
-      color: var(--text-main);
+      letter-spacing: -0.02em;
+      color: var(--claude-cyan); /* Light sky cyan blue from reference photo! */
+      text-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
       position: absolute;
       opacity: 0;
-      transform: translateY(24px) scale(0.96);
-      transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1), transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+      filter: blur(12px);
+      transform: translateY(45px) scale(0.9) rotate(-1.5deg);
+      transition: opacity 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), filter 0.5s ease;
       white-space: nowrap;
+      user-select: none;
     }
 
     .intro-word.active {
       opacity: 1;
-      transform: translateY(0) scale(1);
+      filter: blur(0px);
+      transform: translateY(0) scale(1) rotate(0deg);
+    }
+
+    .intro-word.exit {
+      opacity: 0;
+      filter: blur(10px);
+      transform: translateY(-45px) scale(1.06) rotate(1.5deg);
     }
 
     .intro-subtag {
       position: absolute;
-      bottom: -32px;
+      bottom: -38px;
       font-size: 13px;
-      letter-spacing: 0.25em;
+      letter-spacing: 0.28em;
       text-transform: uppercase;
-      color: var(--text-muted);
+      color: rgba(255, 255, 255, 0.9);
       opacity: 0;
-      transition: opacity 0.3s ease;
+      transition: opacity 0.35s ease, transform 0.35s ease;
+      font-weight: 600;
+      transform: translateY(10px);
     }
 
     .intro-word.active + .intro-subtag {
-      opacity: 0.7;
+      opacity: 0.9;
+      transform: translateY(0);
+    }
+
+    /* Intro Counter Indicator */
+    .intro-counter {
+      position: absolute;
+      bottom: 40px;
+      left: 40px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 12px;
+      letter-spacing: 0.15em;
+      color: rgba(255, 255, 255, 0.8);
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+    .intro-counter-bar {
+      width: 48px;
+      height: 2px;
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 2px;
+      overflow: hidden;
+      position: relative;
+    }
+    .intro-counter-fill {
+      height: 100%;
+      width: 0%;
+      background: var(--claude-cyan);
+      transition: width 0.4s ease;
     }
 
     .skip-intro-btn {
       position: absolute;
       bottom: 40px;
       right: 40px;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid var(--border-subtle);
-      color: var(--text-muted);
+      background: rgba(0, 0, 0, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      color: #ffffff;
       border-radius: 999px;
-      padding: 8px 18px;
+      padding: 10px 22px;
       font-size: 12px;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
+      font-weight: 600;
       cursor: pointer;
+      backdrop-filter: blur(10px);
       transition: all 0.25s ease;
     }
     .skip-intro-btn:hover {
-      background: rgba(255, 255, 255, 0.12);
-      color: var(--text-main);
-      border-color: var(--border-medium);
+      background: rgba(0, 0, 0, 0.4);
+      border-color: #ffffff;
+      transform: translateY(-2px);
     }
 
     /* ============================================================
@@ -241,7 +289,7 @@
       width: 100%; height: 100%;
       z-index: 0;
       pointer-events: none;
-      opacity: 0.4;
+      opacity: 0.35;
     }
     @media (max-width: 767px) { #three-canvas { display: none; } }
 
@@ -250,7 +298,7 @@
       inset: 0;
       background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
       background-size: 200px 200px;
-      opacity: 0.035;
+      opacity: 0.04;
       pointer-events: none;
       z-index: 1;
     }
@@ -259,7 +307,7 @@
       position: fixed;
       top: 0; left: 0;
       width: 0%; height: 2px;
-      background: linear-gradient(90deg, var(--accent), #f78c6c);
+      background: linear-gradient(90deg, var(--accent), var(--claude-cyan));
       z-index: 9999;
       transition: width 0.1s linear;
     }
@@ -278,7 +326,7 @@
     }
 
     .nav-floating {
-      background: rgba(13, 15, 22, 0.82);
+      background: rgba(18, 17, 16, 0.85);
       backdrop-filter: blur(20px) saturate(1.4);
       -webkit-backdrop-filter: blur(20px) saturate(1.4);
       border: 1px solid var(--border-subtle);
@@ -389,7 +437,7 @@
       position: fixed;
       top: 80px; left: 16px; right: 16px;
       z-index: 999;
-      background: rgba(16, 18, 26, 0.96);
+      background: rgba(22, 20, 18, 0.97);
       backdrop-filter: blur(24px);
       border: 1px solid var(--border-medium);
       border-radius: 20px;
@@ -427,7 +475,7 @@
       top: 60px; right: -100px;
       width: 600px; height: 600px;
       border-radius: 50%;
-      background: radial-gradient(circle, rgba(232, 90, 64, 0.14) 0%, transparent 70%);
+      background: radial-gradient(circle, rgba(218, 84, 59, 0.16) 0%, transparent 70%);
       filter: blur(100px);
       pointer-events: none;
     }
@@ -436,7 +484,7 @@
       bottom: -50px; left: -100px;
       width: 500px; height: 500px;
       border-radius: 50%;
-      background: radial-gradient(circle, rgba(44, 138, 99, 0.12) 0%, transparent 70%);
+      background: radial-gradient(circle, rgba(122, 226, 239, 0.1) 0%, transparent 70%);
       filter: blur(100px);
       pointer-events: none;
     }
@@ -523,7 +571,7 @@
     .btn-primary:hover {
       background: var(--accent-hover);
       transform: translateY(-2px);
-      box-shadow: 0 10px 32px rgba(232, 90, 64, 0.4);
+      box-shadow: 0 10px 32px rgba(218, 84, 59, 0.4);
     }
 
     .btn-secondary {
@@ -571,7 +619,7 @@
     .portrait-overlay {
       position: absolute;
       inset: 0;
-      background: linear-gradient(to top, rgba(8, 9, 13, 0.85) 0%, transparent 60%);
+      background: linear-gradient(to top, rgba(18, 17, 16, 0.88) 0%, transparent 60%);
     }
     .portrait-caption {
       position: absolute;
@@ -757,7 +805,7 @@
     .project-tag-badge {
       position: absolute;
       top: 20px; left: 20px;
-      background: rgba(13, 15, 22, 0.85);
+      background: rgba(18, 17, 16, 0.88);
       backdrop-filter: blur(8px);
       border: 1px solid var(--border-medium);
       border-radius: 999px;
@@ -890,7 +938,7 @@
       max-height: 0;
       overflow: hidden;
       transition: max-height 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-      background: rgba(10, 11, 16, 0.6);
+      background: rgba(14, 13, 12, 0.6);
       border-top: 0px solid var(--border-subtle);
     }
     .project-drawer.open {
@@ -1121,7 +1169,7 @@
       font-style: italic;
       font-size: 28px;
       color: var(--accent);
-      opacity: 0.6;
+      opacity: 0.65;
       margin-bottom: 12px;
     }
     .philosophy-title {
@@ -1254,7 +1302,7 @@
       transform: translateX(-50%);
       width: 700px;
       height: 500px;
-      background: radial-gradient(circle, rgba(232, 90, 64, 0.15) 0%, transparent 70%);
+      background: radial-gradient(circle, rgba(218, 84, 59, 0.16) 0%, transparent 70%);
       filter: blur(120px);
       pointer-events: none;
     }
@@ -1312,7 +1360,7 @@
        FOOTER
        ============================================================ */
     footer {
-      background: #050608;
+      background: #0d0c0b;
       border-top: 1px solid var(--border-subtle);
       padding: 48px 0;
       position: relative;
@@ -1356,7 +1404,7 @@
 <canvas id="three-canvas"></canvas>
 
 <!-- ============================================================
-     MULTILINGUAL UNBOXING INTRO ANIMATION
+     CLAUDE TERRACOTTA DYNAMIC MULTILINGUAL UNBOXING INTRO
      ============================================================ -->
 <div id="intro-screen">
   <div class="intro-word-wrap">
@@ -1369,11 +1417,18 @@
     <div class="intro-word" id="intro-w3">നമസ്കാരം.</div>
     <div class="intro-subtag">Malayalam</div>
 
-    <div class="intro-word" id="intro-w4">ਸਤ ਸ੍ਰੀ ਅਕਾਲ.</div>
+    <div class="intro-word" id="intro-w4"><ctrl42>ਸਤ ਸ੍ਰੀ ਅਕਾਲ.</div>
     <div class="intro-subtag">Punjabi</div>
 
     <div class="intro-word" id="intro-w5">నమస్కారం.</div>
     <div class="intro-subtag">Telugu</div>
+  </div>
+
+  <div class="intro-counter">
+    <span id="intro-count-txt">01 / 05</span>
+    <div class="intro-counter-bar">
+      <div class="intro-counter-fill" id="intro-fill-bar"></div>
+    </div>
   </div>
 
   <button class="skip-intro-btn" id="skip-intro-btn" aria-label="Skip introduction">Skip →</button>
@@ -1441,8 +1496,7 @@
         </h1>
 
         <p class="hero-bio">
-          I'm <strong>Alex Kochumon Koshy</strong> — an AI Product Manager &amp; Data Science practitioner.
-          I bridge machine learning models, strategic analytics, and human-centered design to turn complex problems into products people love to use.
+          I'm <strong>Alex Kochumon Koshy</strong> — an aspiring product builder at the intersection of AI, data, and technology. I turn complex problems into thoughtful, usable products through data, experimentation, and human-centered design.
         </p>
 
         <div class="hero-cta-group">
@@ -2030,11 +2084,14 @@
      ============================================================ -->
 <script>
   /* -----------------------------------------------------------
-     1. MULTILINGUAL UNBOXING INTRO SEQUENCER
+     1. CLAUDE TERRACOTTA KINETIC MULTILINGUAL UNBOXING INTRO
      ----------------------------------------------------------- */
   (function initIntro() {
     const introScreen = document.getElementById('intro-screen');
     const skipBtn = document.getElementById('skip-intro-btn');
+    const countTxt = document.getElementById('intro-count-txt');
+    const fillBar = document.getElementById('intro-fill-bar');
+
     const words = [
       document.getElementById('intro-w1'),
       document.getElementById('intro-w2'),
@@ -2046,27 +2103,36 @@
     let currentIndex = 0;
     let timer = null;
 
+    // Interactive mouse glow effect on intro screen
+    introScreen.addEventListener('mousemove', (e) => {
+      const x = (e.clientX / window.innerWidth) * 100;
+      const y = (e.clientY / window.innerHeight) * 100;
+      introScreen.style.setProperty('--mouse-x', x + '%');
+      introScreen.style.setProperty('--mouse-y', y + '%');
+    });
+
     function finishIntro() {
       if (timer) clearTimeout(timer);
       introScreen.classList.add('hide-intro');
-      sessionStorage.setItem('alex_intro_seen', 'true');
-    }
-
-    if (sessionStorage.getItem('alex_intro_seen') === 'true') {
-      introScreen.style.display = 'none';
-      return;
     }
 
     function showNextWord() {
       if (currentIndex > 0) {
         words[currentIndex - 1].classList.remove('active');
+        words[currentIndex - 1].classList.add('exit');
       }
       if (currentIndex < words.length) {
         words[currentIndex].classList.add('active');
+        
+        // Update Step Counter & Fill Bar
+        const stepNum = (currentIndex + 1).toString().padStart(2, '0');
+        if (countTxt) countTxt.textContent = `${stepNum} / 05`;
+        if (fillBar) fillBar.style.width = `${((currentIndex + 1) / words.length) * 100}%`;
+
         currentIndex++;
-        timer = setTimeout(showNextWord, 700);
+        timer = setTimeout(showNextWord, 750);
       } else {
-        timer = setTimeout(finishIntro, 500);
+        timer = setTimeout(finishIntro, 450);
       }
     }
 
@@ -2109,10 +2175,10 @@
     geo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
 
     const mat = new THREE.PointsMaterial({
-      color: 0xe85a40,
+      color: 0xda543b,
       size: 0.06,
       transparent: true,
-      opacity: 0.6
+      opacity: 0.55
     });
     const points = new THREE.Points(geo, mat);
     scene.add(points);
