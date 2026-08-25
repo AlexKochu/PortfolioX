@@ -184,7 +184,7 @@
 
     .intro-word {
       font-family: var(--font-sans);
-      font-size: clamp(3.5rem, 12vw, 8rem);
+      font-size: clamp(3rem, 11vw, 8rem);
       font-weight: 700;
       letter-spacing: -0.02em;
       color: var(--claude-cyan); /* Light sky cyan blue from reference photo! */
@@ -434,7 +434,7 @@
     #mobile-menu {
       display: none;
       position: fixed;
-      top: 80px; left: 16px; right: 16px;
+      top: 76px; left: 12px; right: 12px;
       z-index: 999;
       background: rgba(22, 20, 18, 0.97);
       backdrop-filter: blur(24px);
@@ -451,7 +451,7 @@
       font-size: 16px;
       font-weight: 500;
       color: var(--text-main);
-      padding: 10px 0;
+      padding: 12px 0;
       border-bottom: 1px solid var(--border-subtle);
       display: flex;
       justify-content: space-between;
@@ -707,27 +707,6 @@
       font-size: 16px;
       color: var(--text-muted);
       line-height: 1.7;
-    }
-
-    .about-badges {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-top: 16px;
-    }
-    .about-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid var(--border-subtle);
-      border-radius: 8px;
-      padding: 8px 16px;
-      font-size: 13px;
-      color: var(--text-main);
-    }
-    .about-badge .iconify {
-      color: var(--accent);
     }
 
     /* ============================================================
@@ -1396,6 +1375,104 @@
       opacity: 1;
       transform: translateY(0);
     }
+
+    /* ============================================================
+       MOBILE RESPONSIVENESS & TOUCH UX POLISH
+       ============================================================ */
+    @media (max-width: 767px) {
+      .container {
+        padding: 0 18px;
+      }
+      .nav-floating-wrap {
+        top: 12px;
+        width: calc(100% - 24px);
+      }
+      .nav-floating {
+        padding: 6px 12px 6px 18px;
+      }
+      .intro-word {
+        font-size: clamp(2.2rem, 9.5vw, 4.2rem);
+      }
+      .intro-counter {
+        bottom: 24px;
+        left: 24px;
+      }
+      .skip-intro-btn {
+        bottom: 20px;
+        right: 20px;
+        padding: 8px 16px;
+        font-size: 11px;
+      }
+      .hero-section {
+        padding-top: 110px;
+        padding-bottom: 64px;
+      }
+      .hero-h1 {
+        font-size: clamp(2.2rem, 8.5vw, 3.4rem);
+        margin-bottom: 16px;
+      }
+      .hero-bio {
+        font-size: 16px;
+        margin-bottom: 28px;
+      }
+      .hero-cta-group {
+        flex-direction: column;
+        width: 100%;
+      }
+      .btn-primary, .btn-secondary {
+        width: 100%;
+        justify-content: center;
+        padding: 14px 20px;
+      }
+      .portrait-card {
+        max-width: 280px;
+        margin-top: 12px;
+      }
+      .project-card {
+        grid-template-columns: 1fr !important;
+      }
+      .project-body {
+        padding: 24px 20px;
+      }
+      .drawer-content {
+        padding: 24px 20px;
+        grid-template-columns: 1fr;
+      }
+      .exp-card {
+        padding: 24px 20px;
+      }
+      .exp-role-title {
+        font-size: 20px;
+      }
+      .skills-filter-row {
+        overflow-x: auto;
+        padding-bottom: 8px;
+        flex-wrap: nowrap;
+        -webkit-overflow-scrolling: touch;
+      }
+      .filter-btn {
+        white-space: nowrap;
+        flex-shrink: 0;
+      }
+      .skills-grid, .philosophy-grid, .cert-grid {
+        grid-template-columns: 1fr;
+      }
+      .edu-card {
+        padding: 24px 20px;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .contact-section {
+        padding: 96px 0;
+      }
+      .contact-h2 {
+        font-size: clamp(2.2rem, 9vw, 3.8rem);
+      }
+      .contact-cta-group {
+        flex-direction: column;
+        width: 100%;
+      }
+    }
   </style>
 </head>
 
@@ -1577,7 +1654,6 @@
         <p>
           Whether engineering predictive data pipelines for internal enterprise analytics or designing privacy-first UX frameworks for millions of users, I focus on building solutions that are both technically sound and genuinely intuitive.
         </p>
-
       </div>
     </div>
   </div>
@@ -2110,6 +2186,7 @@
     function finishIntro() {
       if (timer) clearTimeout(timer);
       introScreen.classList.add('hide-intro');
+      document.body.style.overflow = 'auto';
     }
 
     function showNextWord() {
@@ -2246,12 +2323,14 @@
   const mobileMenu = document.getElementById('mobile-menu');
 
   mobileToggle.addEventListener('click', () => {
-    mobileMenu.classList.toggle('open');
+    const isOpen = mobileMenu.classList.toggle('open');
+    document.body.style.overflow = isOpen ? 'hidden' : 'auto';
   });
 
   document.querySelectorAll('#mobile-menu a').forEach(a => {
     a.addEventListener('click', () => {
       mobileMenu.classList.remove('open');
+      document.body.style.overflow = 'auto';
     });
   });
 
