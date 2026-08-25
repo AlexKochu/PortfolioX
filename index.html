@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Alex Kochumon Koshy — Aspiring Product Builder</title>
+  <title>Alex Kochumon Koshy — Aspiring Product Builder &amp; AI Practitioner</title>
   <meta name="description" content="Personal portfolio of Alex Kochumon Koshy. Aspiring product builder at the intersection of AI, data, and technology. Building thoughtful, usable products.">
   <meta name="keywords" content="Alex Koshy, Alex Kochumon Koshy, Product Manager, Product Builder, Business Analytics, Data Science, Machine Learning, Python, SQL">
 
@@ -22,25 +22,25 @@
 
   <style>
     /* ============================================================
-       DESIGN TOKENS & CLAUDE AESTHETIC PALETTE
+       DESIGN TOKENS & CLAUDE HIGH-END PROFESSIONAL PALETTE
        ============================================================ */
     :root {
-      --bg-dark:        #121110; /* Warm obsidian dark mode */
-      --bg-surface:     #191715;
-      --bg-card:        #211e1b;
-      --bg-card-hover:  #292522;
+      --bg-dark:        #0e0d0c; /* High-contrast obsidian dark mode */
+      --bg-surface:     #161413;
+      --bg-card:        #1d1b19;
+      --bg-card-hover:  #25221f;
 
-      --text-main:      #f5efe6; /* Claude off-white cream */
-      --text-muted:     #aa9e93;
-      --text-dim:       #6f655d;
+      --text-main:      #f7f4ee; /* High legibility cream off-white */
+      --text-muted:     #aea498;
+      --text-dim:       #746a60;
 
       --claude-orange:  #da543b; /* Reference Photo Terracotta Coral */
       --claude-cyan:    #7ae2ef; /* Reference Photo Cyan Blue Text */
 
       --accent:         #da543b;
-      --accent-hover:   #ea6148;
+      --accent-hover:   #eb6046;
       --accent-glow:    rgba(218, 84, 59, 0.28);
-      --accent-soft:    rgba(218, 84, 59, 0.14);
+      --accent-soft:    rgba(218, 84, 59, 0.12);
 
       --border-subtle:  rgba(255, 255, 255, 0.08);
       --border-medium:  rgba(255, 255, 255, 0.16);
@@ -128,10 +128,10 @@
 
     .section-title {
       font-family: var(--font-sans);
-      font-size: clamp(2.2rem, 5vw, 4rem);
+      font-size: clamp(2.2rem, 5vw, 3.8rem);
       font-weight: 700;
       letter-spacing: -0.03em;
-      line-height: 1.05;
+      line-height: 1.08;
       color: var(--text-main);
     }
 
@@ -228,7 +228,6 @@
       transform: translateY(0);
     }
 
-    /* Intro Counter Indicator */
     .intro-counter {
       position: absolute;
       bottom: 40px;
@@ -326,7 +325,7 @@
     }
 
     .nav-floating {
-      background: rgba(18, 17, 16, 0.85);
+      background: rgba(18, 17, 16, 0.88);
       backdrop-filter: blur(20px) saturate(1.4);
       -webkit-backdrop-filter: blur(20px) saturate(1.4);
       border: 1px solid var(--border-subtle);
@@ -460,7 +459,7 @@
     }
 
     /* ============================================================
-       HERO SECTION
+       HERO SECTION (PROFESSIONAL EDITORIAL SPLIT)
        ============================================================ */
     .hero-section {
       position: relative;
@@ -484,7 +483,7 @@
       bottom: -50px; left: -100px;
       width: 500px; height: 500px;
       border-radius: 50%;
-      background: radial-gradient(circle, rgba(122, 226, 239, 0.1) 0%, transparent 70%);
+      background: radial-gradient(circle, rgba(122, 226, 239, 0.08) 0%, transparent 70%);
       filter: blur(100px);
       pointer-events: none;
     }
@@ -732,7 +731,7 @@
     }
 
     /* ============================================================
-       SELECTED WORK (EDITORIAL PROJECT SHOWCASE)
+       SELECTED WORK (EDITORIAL CASE STUDIES)
        ============================================================ */
     .work-section {
       padding: 120px 0;
@@ -767,7 +766,7 @@
       border: 1px solid var(--border-subtle);
       border-radius: 20px;
       overflow: hidden;
-      transition: border-color 0.3s ease, transform 0.3s ease;
+      transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
       display: grid;
       gap: 0;
     }
@@ -784,6 +783,7 @@
     }
     .project-card:hover {
       border-color: var(--border-accent);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45);
     }
 
     .project-preview {
@@ -991,10 +991,11 @@
       border: 1px solid var(--border-subtle);
       border-radius: 16px;
       padding: 36px;
-      transition: border-color 0.3s ease;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
     }
     .exp-card:hover {
       border-color: var(--border-accent);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
     }
 
     .exp-header-row {
@@ -1104,11 +1105,12 @@
       display: flex;
       flex-direction: column;
       gap: 16px;
-      transition: transform 0.3s ease, border-color 0.3s ease;
+      transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
     }
     .skill-card:hover {
       transform: translateY(-4px);
       border-color: var(--border-accent);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
     }
 
     .skill-card-icon {
@@ -1163,6 +1165,10 @@
       border-radius: 16px;
       padding: 32px 24px;
       position: relative;
+      transition: border-color 0.3s ease;
+    }
+    .philosophy-card:hover {
+      border-color: var(--border-accent);
     }
     .philosophy-num {
       font-family: var(--font-serif);
@@ -1217,10 +1223,11 @@
       flex-direction: column;
       justify-content: space-between;
       gap: 16px;
-      transition: border-color 0.3s ease;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
     }
     .cert-card:hover {
       border-color: var(--border-accent);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
     }
 
     .cert-issuer {
@@ -1360,7 +1367,7 @@
        FOOTER
        ============================================================ */
     footer {
-      background: #0d0c0b;
+      background: #090807;
       border-top: 1px solid var(--border-subtle);
       padding: 48px 0;
       position: relative;
@@ -1417,7 +1424,7 @@
     <div class="intro-word" id="intro-w3">നമസ്കാരം.</div>
     <div class="intro-subtag">Malayalam</div>
 
-    <div class="intro-word" id="intro-w4"><ctrl42>ਸਤ ਸ੍ਰੀ ਅਕਾਲ.</div>
+    <div class="intro-word" id="intro-w4">ਸਤ ਸ੍ਰੀ ਅਕਾਲ.</div>
     <div class="intro-subtag">Punjabi</div>
 
     <div class="intro-word" id="intro-w5">నమస్కారం.</div>
@@ -1571,17 +1578,6 @@
           Whether engineering predictive data pipelines for internal enterprise analytics or designing privacy-first UX frameworks for millions of users, I focus on building solutions that are both technically sound and genuinely intuitive.
         </p>
 
-        <div class="about-badges">
-          <div class="about-badge">
-            <span class="iconify" data-icon="ph:graduation-cap"></span> B.Tech CSE · LPU (CGPA 7.38)
-          </div>
-          <div class="about-badge">
-            <span class="iconify" data-icon="ph:map-pin"></span> Phagwara, India / Remote
-          </div>
-          <div class="about-badge">
-            <span class="iconify" data-icon="ph:briefcase"></span> Open for Roles 2026
-          </div>
-        </div>
       </div>
     </div>
   </div>
