@@ -1473,6 +1473,8 @@
         width: 100%;
       }
     }
+
+    }
   </style>
 </head>
 
@@ -2375,6 +2377,28 @@
   }, { threshold: 0.1 });
 
   revealEls.forEach(el => observer.observe(el));
+
+  /* -----------------------------------------------------------
+     8. SMOOTH SCROLL WITH OFFSET FOR ANCHOR LINKS
+     ----------------------------------------------------------- */
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      const targetId = this.getAttribute('href');
+      if (targetId === '#') return;
+      
+      const targetElement = document.querySelector(targetId);
+      if (targetElement) {
+        e.preventDefault();
+        const NAV_OFFSET = 90; // Adjust for sticky navbar height
+        const top = targetElement.getBoundingClientRect().top + window.scrollY - NAV_OFFSET;
+        window.scrollTo({
+          top: top,
+          behavior: 'smooth'
+        });
+      }
+    });
+  });
+
 </script>
 
 </body>
